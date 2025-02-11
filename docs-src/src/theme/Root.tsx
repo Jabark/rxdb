@@ -108,12 +108,17 @@ const callToActions: CallToActionItem[] = [
     // }
 ];
 
+
+
+const POPUP_DISABLED_IF_CLOSED_TIME = 1000 * 60 * 10; // 10 minutes
+
 // Default implementation, that you can customize
 export default function Root({ children }) {
     const [showPopup, setShowPopup] = useState<{
         callToAction: CallToActionItem;
         callToActionId: number;
         titleId: number;
+        direction: 'top' | 'bottom' | 'mid';
     }>();
     const DOC_TITLE_PREFIX = '(1) ';
     useEffect(() => {
@@ -127,12 +132,27 @@ export default function Root({ children }) {
         }, 0);
 
         const showTime = location.pathname.includes('.html') ? 30 : 60;
-        // const showTime = 1;
+        // const showTime = 10;
         const intervalId = setInterval(() => {
+            if (location.pathname.includes('premium')) {
+                return;
+            }
             setShowPopup(prevValue => {
+
                 if (prevValue) {
                     return prevValue;
                 }
+
+                /**
+                 * When the popup was closed once,
+                 * we do not show it again for the POPUP_DISABLED_IF_CLOSED_TIME
+                 * to ensure it does not annoy people.
+                 */
+                const closedAt = localStorage.getItem('notification_popup_closed_at');
+                if (closedAt && Date.now() - Number(closedAt) < POPUP_DISABLED_IF_CLOSED_TIME) {
+                    return null;
+                }
+
                 const callToActionId = randomNumber(0, callToActions.length - 1);
                 const callToAction = callToActions[callToActionId];
                 const titleId = randomNumber(0, callToAction.title.length - 1);
@@ -152,7 +172,8 @@ export default function Root({ children }) {
                 return {
                     callToAction,
                     callToActionId,
-                    titleId
+                    titleId,
+                    direction: Math.random() < 0.5 ? 'bottom' : 'mid'
                 };
             });
         }, showTime * 1000);
@@ -164,10 +185,11 @@ export default function Root({ children }) {
     function closePopup() {
         setShowPopup(undefined);
         document.title = document.title.replace(DOC_TITLE_PREFIX, '');
+        localStorage.setItem('notification_popup_closed_at', Date.now().toString());
     }
     return <>
         {children}
-        <div className={'call-to-action-popup ' + (showPopup ? 'active' : '')}>
+        <div className={'call-to-action-popup ' + (showPopup ? 'active ' + showPopup.direction : '')}>
             {
                 showPopup ? <>
                     <h3>{showPopup.callToAction.title[showPopup.titleId]}</h3>

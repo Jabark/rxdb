@@ -3,17 +3,16 @@ import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
 
 import React, { useEffect } from 'react';
-import { CollectionsOfDatabase, RxDatabase, RxLocalDocument, deepEqual, ensureNotFalsy } from '../../../';
+import { CollectionsOfDatabase, RxDatabase, RxLocalDocument, deepEqual, ensureNotFalsy } from '../../../plugins/core';
 import { Modal } from 'antd';
 import {
     PackageName,
-    PriceCalculationInput,
-    calculatePrice
+    calculatePriceFromFormValueDoc
 } from '../components/price-calculator';
 import useIsBrowser from '@docusaurus/useIsBrowser';
-import {
-    Select
-} from 'antd';
+// import {
+//     Select
+// } from 'antd';
 import { distinctUntilChanged, map } from 'rxjs';
 import { triggerTrackingEvent } from '../components/trigger-event';
 
@@ -51,12 +50,14 @@ function getFormValueDoc() {
             if (!formValueDoc) {
                 formValueDoc = await database.upsertLocal<FormValueDocData>(FORM_VALUE_DOCUMENT_ID, {
                     formSubmitted: false,
-                    developers: TEAM_SIZES[0],
+                    developers: TEAM_SIZES[1],
                     packages: [
                         'browser'
                     ]
                 });
             }
+            console.log('form value doc:');
+            console.dir(formValueDoc);
             return formValueDoc;
         })();
     }
@@ -162,17 +163,7 @@ export default function Premium() {
 
     async function recalculatePrice() {
         const formValueDoc = await getFormValueDoc();
-        const formData = formValueDoc.getLatest()._data.data;
-
-        const priceCalculationInput: PriceCalculationInput = {
-            teamSize: formData.developers,
-            // projectAmount: '1', // formData['project-amount'] as any,
-            // licensePeriod: 1, // parseInt(formData['license-period'] as any, 10) as any,
-            // homeCountryCode: homeCountryObject.code,
-            packages: formData.packages
-        };
-
-        const priceResult = calculatePrice(priceCalculationInput);
+        const priceResult = calculatePriceFromFormValueDoc(formValueDoc);
         console.log('priceResult:');
         console.log(JSON.stringify(priceResult, null, 4));
 
@@ -336,7 +327,7 @@ export default function Premium() {
                                                 <div className="suffix">project(s)</div>
                                             </div>
                                         </div> */}
-                                        <div className="field">
+                                        {/* <div className="field">
                                             <label
                                                 htmlFor="developer-count"
                                             >Team Size:</label>
@@ -365,7 +356,7 @@ export default function Premium() {
                                                 <br />
                                                 <span>&#9432; As a developer, we count everyone who stores the <b>rxdb-premium</b> npm package on their device, not only the ones who directly develop with RxDB.</span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="packages">
                                             <h3>Packages:</h3>
                                             <div className="package bg-gradient-left-top">
@@ -683,7 +674,7 @@ export default function Premium() {
                                 </a>{' '}
                                 options and all core plugins that are required for replication, schema
                                 validation, encryption and so on, are totally free. As soon as your
-                                application is more then a side project you can consider using the premium plugins as an easy way
+                                application is more than a side project you can consider using the premium plugins as an easy way
                                 to improve your applications performance and reduce the build size.
                                 <br />
                                 The main benefit of the Premium Plugins is <b>performance</b>. The
@@ -1042,11 +1033,11 @@ function BuyFormDialog({ onClose, open }) {
                     borderRadius: '32px',
                 }}
                 id="request-project-form"
-                src="https://webforms.pipedrive.com/f/ccHPh7YO0qKXOVm3x8LsA4b2pjAgyE9nLP9tTKWmWETw3NfJsVGJ6p5ms5srnf8mTV"
+                src="https://webforms.pipedrive.com/f/ccHQ5wi8dHxdFgcxEnRfXaXv2uTGnLNwP4tPAGO3hgSFan8xa5j7Kr3LH5OXzWQo2T"
             >
                 Your browser doesn't support iframes,{' '}
                 <a
-                    href="https://webforms.pipedrive.com/f/ccHPh7YO0qKXOVm3x8LsA4b2pjAgyE9nLP9tTKWmWETw3NfJsVGJ6p5ms5srnf8mTV"
+                    href="https://webforms.pipedrive.com/f/ccHQ5wi8dHxdFgcxEnRfXaXv2uTGnLNwP4tPAGO3hgSFan8xa5j7Kr3LH5OXzWQo2T"
                     target="_blank"
                     rel="nofollow"
                 >

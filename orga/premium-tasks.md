@@ -10,9 +10,11 @@ To ensure there are not multiple people working on the same task, before you sta
 - To solve a task, you must do it fully on your own.
 - The maintainer might answer your questions but will not do the work.
 - The CI must still be green afterwards. Commenting out broken tests is not allowed.
+- Your PR must be complete or it will not be merged. Do not expect to have the maintainer finish your work or asking you each week about the progress.
 
-## Open Tasks
+## Open Tasks (pick one and work on it)
 
+- Write and publish a short entry about RxDB on wikipedia.
 - Add server-side-rendering to the angular example, this was disabled when upgrading from angular v16 to v17: https://github.com/pubkey/rxdb/pull/5800
 - Update the [foundationdb package](https://github.com/search?q=repo%3Apubkey%2Frxdb+%22npm%20install%20foundationdb%22+path%3A.github%2Fworkflows%2Fmain.yml&type=code) to the newest version while ensuring the tests still work.
 - Find a way to correctly type [custom-reactivity adapters](https://rxdb.info/reactivity.html) (aka signals) so that they know the correct document type:
@@ -20,7 +22,6 @@ To ensure there are not multiple people working on the same task, before you sta
 const signal = myRxDocument.get$$('foobar'); // <- This has the type Signal<any> but should have Signal<MyDocumentType>
 const signal = collection.find().$$; // <- This has the type Signal<any[]> but should have Signal<MyDocumentType[]>
 ```
-- Update [Bun.js to the latest version](https://github.com/pubkey/rxdb/blob/master/.github/workflows/main.yml#L843) while ensuring the tests still work
 - Add granular [binary operations to expo-file-system](https://expo.canny.io/feature-requests/p/add-granular-binary-operations-to-expo-file-system)
 
 ## Tasks already in progress (do no work on these!)

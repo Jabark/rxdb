@@ -2,12 +2,33 @@
 # RxDB Changelog
 
 <!-- CHANGELOG NEWEST -->
-- REMOVE `console.log('exposeWorkerRxStorage()');` from the worker RxStorage.
+
 <!-- ADD new changes here! -->
 
 <!-- /CHANGELOG NEWEST -->
 
 <!-- RELEASE BELOW -->
+
+### 16.6.1 (9 February 2025)
+
+### 16.6.0 (7 February 2025)
+
+- FIX FilesystemNode storage imported stuff from the IndexedDB storage which could break builds.
+- FIX [broken cjs import on the flexsearch plugin](https://discord.com/channels/969553741705539624/1333530507215900692)
+
+### 16.5.0 (4 February 2025)
+
+- ADD option `toggleOnDocumentVisible` to `replicateRxCollection()`. [See](https://github.com/pubkey/rxdb/issues/6810)
+- ADD `RxReplicationState.pause()`
+- ADD `RxReplicationState.isPaused()`
+- ADD tests to replication to ensure running the same replication in multiple tabs at once does not fail.
+
+### 16.4.0 (1 February 2025)
+
+- ADD option to set custom formats in the [schema validators](https://rxdb.info/schema-validation.html)
+- CHANGE enable Ajv strict mode.
+- REMOVE `console.log('exposeWorkerRxStorage()');` from the worker RxStorage.
+- ADD dev-mode check for `undefined` properties in queries. [#6792](https://github.com/pubkey/rxdb/issues/6792)
 
 ### 16.3.0 (22 January 2025)
 

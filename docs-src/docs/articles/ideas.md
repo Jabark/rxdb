@@ -12,29 +12,21 @@
 X- "optimistic ui"
 X- "local database"
 X- "react-native encryption"
+X- "vue database"
+X- "jquery database"
+X- "vue indexeddb"
+X- "firebase alternative"
+X- "firestore alternative" 
+X- "ionic storage"
 
-- "firebase alternative"
-- "firestore alternative" 
 - "supabase alternative"
-
-- "jquery database"
-
+- "reactjs storage"
 - "store local storage"
-
 - "react localstorage"
-
 - "react-native storage"
-
-
 - "local database"
-
-- "ionic storage"
-
-- "vue database"
-
+- "supabase offline"
+- "offline database"
 - "store array in localstorage", "localStorage array of objects"
-
-
 - "real time web apps"
-
 - "reactive database"

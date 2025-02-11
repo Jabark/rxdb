@@ -72,13 +72,18 @@ const sidebars = {
         },
         {
           type: 'doc',
-          id: 'rx-storage-indexeddb',
-          label: 'IndexedDB'
+          id: 'rx-storage-dexie',
+          label: 'Dexie.js'
         },
         {
           type: 'doc',
-          id: 'rx-storage-sqlite',
-          label: 'SQLite'
+          id: 'rx-storage-indexeddb',
+          label: 'IndexedDB 👑'
+        },
+        {
+          type: 'doc',
+          id: 'rx-storage-opfs',
+          label: 'OPFS 👑'
         },
         {
           type: 'doc',
@@ -87,18 +92,13 @@ const sidebars = {
         },
         {
           type: 'doc',
-          id: 'rx-storage-dexie',
-          label: 'Dexie.js'
-        },
-        {
-          type: 'doc',
-          id: 'rx-storage-opfs',
-          label: 'OPFS'
+          id: 'rx-storage-sqlite',
+          label: 'SQLite 👑'
         },
         {
           type: 'doc',
           id: 'rx-storage-filesystem-node',
-          label: 'Filesystem Node'
+          label: 'Filesystem Node 👑'
         },
         {
           type: 'doc',
@@ -139,7 +139,7 @@ const sidebars = {
         {
           type: 'doc',
           id: 'logger',
-          label: 'Logger'
+          label: 'Logger 👑'
         },
         {
           type: 'doc',
@@ -149,27 +149,27 @@ const sidebars = {
         {
           type: 'doc',
           id: 'rx-storage-worker',
-          label: 'Worker RxStorage'
+          label: 'Worker RxStorage 👑'
         },
         {
           type: 'doc',
           id: 'rx-storage-shared-worker',
-          label: 'SharedWorker RxStorage'
+          label: 'SharedWorker RxStorage 👑'
         },
         {
           type: 'doc',
           id: 'rx-storage-memory-mapped',
-          label: 'Memory Mapped RxStorage'
+          label: 'Memory Mapped RxStorage 👑'
         },
         {
           type: 'doc',
           id: 'rx-storage-sharding',
-          label: 'Sharding'
+          label: 'Sharding 👑'
         },
         {
           type: 'doc',
           id: 'rx-storage-localstorage-meta-optimizer',
-          label: 'Localstorage Meta Optimizer'
+          label: 'Localstorage Meta Optimizer 👑'
         },
         {
           type: 'doc',
@@ -358,7 +358,7 @@ const sidebars = {
         {
           type: 'doc',
           id: 'fulltext-search',
-          label: 'Fulltext Search'
+          label: 'Fulltext Search 👑'
         },
         {
           type: 'doc',
@@ -368,7 +368,7 @@ const sidebars = {
         {
           type: 'doc',
           id: 'query-optimizer',
-          label: 'Query Optimizer'
+          label: 'Query Optimizer 👑'
         },
         {
           type: 'doc',
@@ -474,6 +474,7 @@ const sidebars = {
         'articles/frontend-database',
         'articles/in-memory-nosql-database',
         'articles/ionic-database',
+        'articles/ionic-storage',
         'articles/json-database',
         'articles/websockets-sse-polling-webrtc-webtransport',
         'articles/localstorage',
@@ -488,6 +489,11 @@ const sidebars = {
         'articles/optimistic-ui',
         'articles/local-database',
         'articles/react-native-encryption',
+        'articles/vue-database',
+        'articles/vue-indexeddb',
+        'articles/jquery-database',
+        'articles/firestore-alternative',
+        'articles/firebase-realtime-database-alternative',
       ],
     },
     'contribute',

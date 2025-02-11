@@ -55,12 +55,12 @@ The server **must** implement the following methods to be compatible with the re
 
 
 ```
-        +--------+                             +--------+   
+        +--------+                             +--------+ 
         |        | pullHandler()               |        |
-        |        |--------------------->       |        |   
+        |        |--------------------->       |        | 
         |        |                             |        | 
-        |        |                             |        |  
-        | Client | pushHandler()               | Server |  
+        |        |                             |        |
+        | Client | pushHandler()               | Server |
         |        |--------------------->       |        | 
         |        |                             |        |
         |        |   pullStream$               |        | 
@@ -79,7 +79,7 @@ A checkpoint is a subset of the fields of the last pulled document. When the che
 For example if your documents contain an `id` and an `updatedAt` field, these two can be used as checkpoint.
 
 When the checkpoint iteration reaches the last checkpoint, where the backend returns an empty array because there are no newer documents, the replication will automatically switch to the `event observation` mode.
-  
+
 ### Event observation
 
 While the client is connected to the backend, the events from the backend are observed via `pullStream$` and persisted to the client.
@@ -510,15 +510,25 @@ setInterval(() => myRxReplicationState.reSync(), 10 * 1000);
 Cancels the replication. Returns a promise that resolved when everything has been cleaned up.
 
 ```ts
-await myRxReplicationState.cancel()
+await myRxReplicationState.cancel();
 ```
+
+### pause()
+
+Pauses a running replication. The replication can later be resumed with `RxReplicationState.start()`.
+
+```ts
+await myRxReplicationState.pause();
+await myRxReplicationState.start(); // restart
+```
+
 
 ### remove()
 
 Cancels the replication and deletes the metadata of the replication state. This can be used to restart the replication "from scratch". Calling `.remove()` will only delete the replication metadata, it will NOT delete the documents from the collection of the replication.
 
 ```ts
-await myRxReplicationState.remove()
+await myRxReplicationState.remove();
 ```
 
 ### isStopped()
@@ -527,6 +537,14 @@ Returns `true` if the replication is stopped. This can be if a non-live replicat
 
 ```js
 replicationState.isStopped(); // true/false
+```
+
+### isPaused()
+
+Returns `true` if the replication is paused.
+
+```js
+replicationState.isPaused(); // true/false
 ```
 
 ### Setting a custom initialCheckpoint
@@ -569,7 +587,18 @@ const replicationState = replicateRxCollection({
 });
 ```
 
+### toggleOnDocumentVisible
 
+`(experimental)`
+
+Set this to true to ensure the replication also runs if the tab is currently `visbile`. This fixes problem in browsers where the replicating leader-elected tab becomes stale or hibernated by the browser to save battery life. If the tab is losing visibility, the replication will be paused automatically and then restarted if either the tab becomes leader or the tab becomes visible again.
+
+```ts
+const replicationState = replicateRxCollection({
+    toggleOnDocumentVisible: true,
+    /* ... */
+});
+```
 
 ### Attachment replication (beta)
 
